@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приглашение в армию для геймеров</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #1a2f1a 0%, #2d4a2d 50%, #1a2f1a 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            position: relative;
+            overflow-x: hidden;
+        }
+        
+        /* Камуфляжный паттерн */
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(circle at 25% 25%, rgba(139, 90, 0, 0.2) 2%, transparent 2%),
+                radial-gradient(circle at 75% 75%, rgba(139, 90, 0, 0.2) 2%, transparent 2%),
+                radial-gradient(circle at 50% 50%, rgba(85, 107, 47, 0.2) 3%, transparent 3%),
+                radial-gradient(circle at 90% 10%, rgba(65, 79, 37, 0.2) 2%, transparent 2%),
+                radial-gradient(circle at 10% 90%, rgba(65, 79, 37, 0.2) 2%, transparent 2%);
+            background-size: 150px 150px;
+            z-index: 0;
+        }
+        
+        .container {
+            background: 
+                radial-gradient(ellipse at 30% 20%, rgba(101, 120, 56, 0.7) 0%, transparent 40%),
+                radial-gradient(ellipse at 70% 80%, rgba(139, 90, 0, 0.7) 0%, transparent 40%),
+                radial-gradient(ellipse at 50% 50%, rgba(65, 79, 37, 0.9) 0%, rgba(85, 107, 47, 0.9) 100%);
+            border: 8px solid #5d6d2e;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7), 
+                        inset 0 0 20px rgba(139, 90, 0, 0.5);
+            padding: 40px;
+            max-width: 800px;
+            width: 100%;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            overflow: hidden;
+        }
+        
+        /* Эффект потертостей */
+        .container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-image: url("data:image/svg+xml,%3Csvg width='100' height='100' viewBox='0 0 100 100' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise' x='0' y='0'%3E%3CfeTurbulence baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100' height='100' filter='url(%23noise)' opacity='0.15'/%3E%3C/svg%3E");
+            opacity: 0.3;
+            z-index: -1;
+            border-radius: 7px;
+        }
+        
+        .title {
+            color: #e0d3a8;
+            font-size: 2.8rem;
+            margin-bottom: 20px;
+            text-shadow: 3px 3px 0 #3a4a2a, 5px 5px 0 rgba(0, 0, 0, 0.5);
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .title::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 25%;
+            width: 50%;
+            height: 3px;
+            background: linear-gradient(to right, transparent, #e0d3a8, transparent);
+        }
+        
+        .message {
+            background-color: rgba(42, 52, 24, 0.8);
+            border: 3px solid #5d6d2e;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            color: #d4c9a3;
+            font-size: 1.4rem;
+            line-height: 1.6;
+            text-align: left;
+            box-shadow: inset 0 0 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+        }
+        
+        .message::before {
+            content: "«";
+            position: absolute;
+            top: -25px;
+            left: 20px;
+            font-size: 5rem;
+            color: #8b5a00;
+            font-family: Georgia, serif;
+            opacity: 0.7;
+        }
+        
+        .highlight {
+            color: #f0e6c5;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 18px 40px;
+            font-size: 1.4rem;
+            font-weight: bold;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            min-width: 200px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .btn::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+        
+        .btn-accept {
+            background: linear-gradient(to bottom, #4a5e23 0%, #2d3a16 100%);
+            color: #e0d3a8;
+            border: 3px solid #8b5a00;
+        }
+        
+        .btn-accept:hover {
+            background: linear-gradient(to bottom, #5a6e33 0%, #3d4a26 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .btn-accept:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .btn-agree {
+            background: linear-gradient(to bottom, #8b5a00 0%, #5d3c00 100%);
+            color: #e0d3a8;
+            border: 3px solid #4a5e23;
+        }
+        
+        .btn-agree:hover {
+            background: linear-gradient(to bottom, #9b6a10 0%, #6d4c10 100%);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.7);
+        }
+        
+        .btn-agree:active {
+            transform: translateY(1px);
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.5);
+        }
+        
+        .response-message {
+            background-color: rgba(42, 52, 24, 0.9);
+            border: 3px dashed #8b5a00;
+            border-radius: 10px;
+            padding: 25px;
+            color: #f0e6c5;
+            font-size: 1.6rem;
+            display: none;
+            margin-top: 20px;
+            animation: pulse 2s infinite;
+            position: relative;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(139, 90, 0, 0.7); }
+            70% { box-shadow: 0 0 0 15px rgba(139, 90, 0, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(139, 90, 0, 0); }
+        }
+        
+        .phone-number {
+            color: #ffd700;
+            font-weight: bold;
+            font-size: 2rem;
+            text-shadow: 2px 2px 0 #000;
+            display: block;
+            margin-top: 10px;
+            letter-spacing: 2px;
+        }
+        
+        .footer {
+            margin-top: 30px;
+            color: #8b9a6d;
+            font-size: 0.9rem;
+            border-top: 1px solid #5d6d2e;
+            padding-top: 15px;
+        }
+        
+        /* Адаптивность */
+        @media (max-width: 768px) {
+            .container {
+                padding: 25px;
+            }
+            
+            .title {
+                font-size: 2.2rem;
+            }
+            
+            .message {
+                font-size: 1.2rem;
+                padding: 20px;
+            }
+            
+            .highlight {
+                font-size: 1.3rem;
+            }
+            
+            .btn {
+                padding: 15px 30px;
+                font-size: 1.2rem;
+                min-width: 180px;
+            }
+            
+            .response-message {
+                font-size: 1.4rem;
+            }
+            
+            .phone-number {
+                font-size: 1.6rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 1.8rem;
+            }
+            
+            .message {
+                font-size: 1.1rem;
+            }
+            
+            .buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+            
+            .phone-number {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1 class="title">Военное Приглашение</h1>
+        
+        <div class="message">
+            <p>Как мы поняли, вы - <span class="highlight">большой игроман в шутеры</span> с выдающимися навыками виртуального боя. Ваши достижения в игровых мирах не остались незамеченными!</p>
+            <p style="margin-top: 15px;">Специально для вас подготовлено уникальное предложение: присоединиться к армейской программе, где вы сможете <span class="highlight">применить свои игровые навыки</span> в реальных условиях и отточить их до совершенства под руководством опытных инструкторов.</p>
+            <p style="margin-top: 15px;">Это ваш шанс превратить виртуальные победы в реальные достижения!</p>
+        </div>
+        
+        <div class="buttons">
+            <button class="btn btn-accept" id="acceptBtn">Принять вызов</button>
+            <button class="btn btn-agree" id="agreeBtn">Согласиться</button>
+        </div>
+        
+        <div class="response-message" id="responseMessage">
+            Оставьте свою заявку по номеру телефона:
+            <span class="phone-number">8-912-443-05-43</span>
+        </div>
+        
+        <div class="footer">
+            Официальное приглашение от Департамента военного развития игровых технологий
+        </div>
+    </div>
+
+    <script>
+        // Обработка нажатия на кнопки
+        document.getElementById('acceptBtn').addEventListener('click', function() {
+            showResponseMessage();
+        });
+        
+        document.getElementById('agreeBtn').addEventListener('click', function() {
+            showResponseMessage();
+        });
+        
+        function showResponseMessage() {
+            const responseMessage = document.getElementById('responseMessage');
+            responseMessage.style.display = 'block';
+            
+            // Прокрутка к сообщению с номером телефона
+            responseMessage.scrollIntoView({ behavior: 'smooth' });
+            
+            // Добавляем небольшой эффект при показе
+            responseMessage.style.transform = 'scale(1.05)';
+            setTimeout(() => {
+                responseMessage.style.transform = 'scale(1)';
+            }, 300);
+        }
+        
+        // Добавляем случайные камуфляжные элементы на фон
+        document.addEventListener('DOMContentLoaded', function() {
+            const body = document.body;
+            
+            // Создаем несколько случайных камуфляжных пятен на фоне
+            for (let i = 0; i < 15; i++) {
+                const spot = document.createElement('div');
+                spot.style.position = 'absolute';
+                spot.style.width = Math.random() * 100 + 50 + 'px';
+                spot.style.height = Math.random() * 100 + 50 + 'px';
+                spot.style.borderRadius = '50%';
+                spot.style.background = `rgba(${Math.floor(Math.random() * 50 + 50)}, ${Math.floor(Math.random() * 60 + 60)}, ${Math.floor(Math.random() * 30 + 20)}, 0.1)`;
+                spot.style.top = Math.random() * 100 + '%';
+                spot.style.left = Math.random() * 100 + '%';
+                spot.style.zIndex = '0';
+                spot.style.pointerEvents = 'none';
+                body.appendChild(spot);
+            }
+        });
+    </script>
+</body>
+</html>
